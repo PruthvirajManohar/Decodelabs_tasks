@@ -1,0 +1,56 @@
+import sys
+
+# [span_0](start_span)PROJECT 1: THE TO-DO LIST - THE DNA OF BACKEND ENGINEERING[span_0](end_span)
+# [span_1](start_span)ARCHITECTURE: DECOUPLED MODEL (DATA) AND VIEW (UI)[span_1](end_span)
+
+def main():
+    # [span_2](start_span)STORAGE: The Volatile Container (RAM)[span_2](end_span)
+    # [span_3](start_span)This acts as the primitive structure of a database[span_3](end_span)
+    my_tasks = [] 
+
+    while True:
+        # [span_4](start_span)DISPLAY: The Output Layer (IPO Model)[span_4](end_span)
+        print("\n" + "="*30)
+        print("DECODELABS TO-DO ENGINE")
+        print("="*30)
+        print("1. Add Task")
+        print("2. View Tasks")
+        print("3. Exit")
+        
+        choice = input("\nSelect Operation ID: ").strip()
+
+        # [span_5](start_span)PROCESS: Logic/Modification[span_5](end_span)
+        if choice == '1':
+            task_input = input("Enter task description: ").strip()
+            if task_input:
+                # Engineering Logic: Dictionary defines a row; [span_6](start_span)List stores the collection[span_6](end_span)
+                # [span_7](start_span)Appending is Amortized O(1) efficiency[span_7](end_span)
+                task_entry = {
+                    "id": len(my_tasks) + 1, 
+                    "task": task_input
+                }
+                my_tasks.append(task_entry)
+                print("SUCCESS: Data stored in Heap.")
+            else:
+                print("ERROR: Input cannot be empty.")
+
+        elif choice == '2':
+            if not my_tasks:
+                print("SYSTEM STATE: Memory Empty.")
+            else:
+                print("\n--- CURRENT DATABASE VIEW ---")
+                # [span_8](start_span)THE PROFESSIONAL WAY: Simultaneous access to Index and Value[span_8](end_span)
+                for index, task_data in enumerate(my_tasks):
+                    print(f"[{index}] ID: {task_data['id']} | Task: {task_data['task']}")
+
+        elif choice == '3':
+            # [span_9](start_span)THE VOLATILE TRAP: Process Terminated = Data Lost[span_9](end_span)
+            print("System shutdown. RAM cleared.")
+            break
+            
+        else:
+            print("Invalid Selection.")
+
+# [span_10](start_span)GATEKEEPER: Professional script execution[span_10](end_span)
+if __name__ == "__main__":
+    main()
